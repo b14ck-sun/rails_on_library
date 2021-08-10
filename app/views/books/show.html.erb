@@ -1,0 +1,32 @@
+<h1>Title: <%= @book.title %></h1>
+
+<p>Writer: <%= @book.writer %></p>
+
+<p>Creator: <%= @book.creator %></p>
+
+<p>Cost: <%= @book.cost %></p>
+
+<p>Limit: <%= @book.limit %></p>
+
+<p>Remaining: <%= @book.limit - @borrows.count%></p>
+
+<% if current_user.email == @book.creator %>
+  <ul>
+    <li><%= link_to "Edit", edit_book_path(@book) %></li>
+    <li><%= link_to "Destroy", book_path(@book),
+                    method: :delete,
+                    data: { confirm: "Are you sure?" } %></li>
+  </ul>
+<% end %>
+
+<% if @book.limit > 0 and (@book.limit - @borrows.count) > 0 %>
+  <%= form_tag book_path(@book), method: :post do %>
+    <%= submit_tag 'Borrow' %>
+  <% end %>
+<% end %>
+
+<h2>Comments</h2>
+<%= render @book.comments %>
+
+<h2>Add a comment:</h2>
+<%= render 'comments/form' %>

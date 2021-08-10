@@ -1,0 +1,17 @@
+<h1>Borrows</h1>
+
+<ul>
+  <% @borrows.each do |borrow| %>
+    <li>
+      <%= borrow.user.email %> /
+      <%= borrow.book.title %> /
+      <%= borrow.state %> 
+      <% if borrow.state == "borrowed" && current_user.email == borrow.user.email %>
+      /
+        <%= form_tag "/borrows/#{borrow.id}", method: :post do %>
+          <%= submit_tag 'Return' %>
+        <% end %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
