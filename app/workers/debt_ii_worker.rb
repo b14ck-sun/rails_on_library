@@ -1,8 +1,7 @@
-class CreditCollectorJob < ApplicationJob
-  queue_as :default
+class DebtIiWorker
+  include Sidekiq::Worker
 
   def perform(*args)
-    # puts "I am Kewl"
     for rec in Borrow.all
       if rec.state == "borrowed"
         # cst = rec.user.Debt + rec.book.costs
@@ -14,5 +13,3 @@ class CreditCollectorJob < ApplicationJob
     end
   end
 end
-
-# Sidekiq::Cron::Job.create(name: 'Debt Collecter - every min', cron: '*/1 * * * *', class: 'CreditCollectorJob')
