@@ -5,7 +5,9 @@
     <li>
       <%= borrow.user.email %> /
       <%= borrow.book.title %> /
-      <%= borrow.state %> 
+      <%= borrow.state %> /
+      <% cas = borrow.created_at %> 
+      <%= cas %>
       <% if borrow.state == "borrowed" && current_user.email == borrow.user.email %>
       /
         <%= form_tag "/borrows/#{borrow.id}", method: :post do %>
