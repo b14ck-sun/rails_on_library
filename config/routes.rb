@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # get 'books/index'
-  root "books#index"
+  mount API => '/'
+  # root "books#index"
   resources :books do
     resources :comments
   end
