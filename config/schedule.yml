@@ -1,3 +1,6 @@
 DC_job:
   cron: "*/1 * * * *"
   class: "DebtIiWorker"
+Comment_job:
+  cron: "*/1 * * * *"
+  class: "CommentCleanerWorker"

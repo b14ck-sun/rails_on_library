@@ -31,16 +31,6 @@
     <% end %>
   </div>
 
-
-  <div>
-    <%= form.label :creator %><br>
-    <%= form.text_field :creator, value: current_user.email, readonly: true %>
-    
-    <% book.errors.full_messages_for(:creator).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
-
   <div>
     <%= form.submit %>
   </div>

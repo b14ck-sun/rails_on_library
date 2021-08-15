@@ -2,7 +2,7 @@
 
 <p>Writer: <%= @book.writer %></p>
 
-<p>Creator: <%= @book.creator %></p>
+<p>Creator: <%= current_user.email %></p>
 
 <p>Cost: <%= @book.cost %></p>
 
@@ -10,7 +10,7 @@
 
 <p>Remaining: <%= @book.limit - @borrows.count%></p>
 
-<% if current_user.email == @book.creator %>
+<% if current_user == @book.user %>
   <ul>
     <li><%= link_to "Edit", edit_book_path(@book) %></li>
     <li><%= link_to "Destroy", book_path(@book),
