@@ -17,12 +17,7 @@
     </li>
   <% end %>
 </ul>
-Current Credit: <%= current_user.Debt %> 
-<%
-=begin%>
- <%= current_user.Debt.to_s[1..-1] %> 
-<%
-=end%>
+Current Credit: <%= current_user.debt %> 
 <%= form_tag "/borrows/give/change", method: :post do %>
   <%= submit_tag 'Give 100 Credit' %>
 <% end %>

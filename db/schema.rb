@@ -10,16 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_11_133204) do
+ActiveRecord::Schema.define(version: 2021_08_11_092850) do
 
   create_table "books", force: :cascade do |t|
     t.string "title"
     t.string "writer"
     t.integer "limit"
     t.integer "cost"
-    t.string "creator"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_books_on_user_id"
   end
 
   create_table "borrows", force: :cascade do |t|
@@ -33,12 +34,15 @@ ActiveRecord::Schema.define(version: 2021_08_11_133204) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.string "commenter"
     t.text "body"
+    t.string "state"
+    t.text "original_body"
     t.integer "book_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["book_id"], name: "index_comments_on_book_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -49,8 +53,7 @@ ActiveRecord::Schema.define(version: 2021_08_11_133204) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "Debt"
-    t.integer "limit"
+    t.integer "debt", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

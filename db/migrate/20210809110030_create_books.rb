@@ -5,7 +5,7 @@ class CreateBooks < ActiveRecord::Migration[5.2]
       t.string :writer
       t.integer :limit
       t.integer :cost
-      t.string :creator
+      t.references :user, foreign_key: true
 
       t.timestamps
     end

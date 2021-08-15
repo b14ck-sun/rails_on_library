@@ -6,8 +6,12 @@ class BooksController < ApplicationController
   end
 
   def show
-    @book = Book.find(params[:id])
-    @borrows = Borrow.where(book:@book, state:"borrowed")
+    if Book.exists?(params[:id])
+      @book = Book.find(params[:id])
+      @borrows = Borrow.where(book:@book, state:"borrowed")
+    else
+      render :template => "books/notfound"
+    end
   end
 
   def new
@@ -15,8 +19,7 @@ class BooksController < ApplicationController
   end
 
   def create
-    @book = Book.new(book_params)
-
+    @book = Book.new(title:book_params[:title], writer:book_params[:writer], cost:book_params[:cost], limit:book_params[:limit], user:current_user)
     if @book.save
       redirect_to @book
     else
@@ -31,7 +34,7 @@ class BooksController < ApplicationController
   def update
     @book = Book.find(params[:id])
 
-    if @book.update(book_params)
+    if @book.update(title:book_params[:title], writer:book_params[:writer], cost:book_params[:cost])
       redirect_to @book
     else
       render :edit
@@ -45,16 +48,9 @@ class BooksController < ApplicationController
     redirect_to root_path
   end
 
-  def destroyall
-    @books = Book.all
-    for @book in @books
-      @book.destroy
-    end
-  end
-
   private
     def book_params
-      params.require(:book).permit(:title, :writer, :creator, :limit, :cost)
+      params.require(:book).permit(:title, :writer, :limit, :cost)
     end
 
 end
