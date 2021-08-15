@@ -2,6 +2,7 @@ class BorrowsController < ApplicationController
 
     def index
         @borrows = Borrow.all
+        # @env = ENV.fetch("MaxNum")
     end
 
     def giveback
@@ -13,9 +14,9 @@ class BorrowsController < ApplicationController
     end
 
     def give_credit
-        ncr = current_user.Debt - 100
-        # if current_user.Debt then ncr = current_user.Debt - 100 else ncr = -100 end
-        current_user.update(Debt: ncr)
+        new_credit = current_user.Debt + 100
+        # if current_user.Debt then new_credit = current_user.Debt - 100 else new_credit = -100 end
+        current_user.update(Debt: new_credit)
         puts "Debt Cleared"
         redirect_to "/borrows"
     end
@@ -23,10 +24,14 @@ class BorrowsController < ApplicationController
     def create
         @book = Book.find(params[:id])
         @borrows = Borrow.where(book:@book, state:"borrowed").count
-        if @borrows < @book.limit
+        if @borrows < ENV.fetch("MaxNum").to_i
             Borrow.create(book:@book, user:current_user, state:"borrowed")
+            redirect_to root_path
+        else
+            # redirect_to root_path
+            # redirect_to action: failed
+            render :template => "borrows/failed"
         end        
-        redirect_to root_path
-      end
+    end
 
 end
