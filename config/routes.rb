@@ -4,8 +4,10 @@ Rails.application.routes.draw do
   resources :books do
     resources :comments
   end
+
   post "/books/:id", to: "borrows#create"
-  post "/borrows/:id", to: "borrows#return"
+  post "/borrows/:id", to: "borrows#giveback"
+  post "/borrows/give/change", to: "borrows#give_credit"
   # resources :borrows
   get "/borrows", to: "borrows#index"
   # devise_for :users

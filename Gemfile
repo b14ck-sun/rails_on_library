@@ -63,3 +63,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
 gem 'devise'
+
+gem 'sidekiq'
+
+gem "sidekiq-cron", "~> 1.1"
+
+gem 'dotenv-rails', groups: [:development, :test]

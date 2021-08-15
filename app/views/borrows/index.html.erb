@@ -5,7 +5,9 @@
     <li>
       <%= borrow.user.email %> /
       <%= borrow.book.title %> /
-      <%= borrow.state %> 
+      <%= borrow.state %> /
+      <% cas = borrow.created_at %> 
+      <%= cas %>
       <% if borrow.state == "borrowed" && current_user.email == borrow.user.email %>
       /
         <%= form_tag "/borrows/#{borrow.id}", method: :post do %>
@@ -15,3 +17,12 @@
     </li>
   <% end %>
 </ul>
+Current Credit: <%= current_user.Debt %> 
+<%
+=begin%>
+ <%= current_user.Debt.to_s[1..-1] %> 
+<%
+=end%>
+<%= form_tag "/borrows/give/change", method: :post do %>
+  <%= submit_tag 'Give 100 Credit' %>
+<% end %>
