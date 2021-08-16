@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  # get 'books/index'
+
+  mount API => '/'
+  # mount GrapeSwaggerRails::Engine => '/swagger'
+
   root "books#index"
   resources :books do
     resources :comments
