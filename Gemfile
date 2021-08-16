@@ -74,6 +74,8 @@ gem 'grape'
 
 gem 'grape-swagger'
 
+gem 'aasm'
+
 # gem 'grape-swagger-entity', '~> 0.3'
 
 # gem 'grape-swagger-representable', '~> 0.2'

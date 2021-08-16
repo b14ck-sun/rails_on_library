@@ -11,7 +11,7 @@ class BorrowsController < ApplicationController
     def giveback
         @borrow = Borrow.find(params[:id])
         if @borrow.user == current_user
-            @borrow.update(state:"returned")
+            @borrow.return_book!
             redirect_to "/borrows"
         end
     end
@@ -24,9 +24,9 @@ class BorrowsController < ApplicationController
     
     def create
         @book = Book.find(params[:id])
-        @borrows = Borrow.where(user:current_user, state:"borrowed").count
+        @borrows = Borrow.where(user:current_user, state: :borrowed).count
         if @borrows < ENV.fetch("MaxNum").to_i
-            Borrow.create(book:@book, user:current_user, state:"borrowed")
+            Borrow.create(book:@book, user:current_user)
             redirect_to root_path
         else
             render :template => "borrows/failed"

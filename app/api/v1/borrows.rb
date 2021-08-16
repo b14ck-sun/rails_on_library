@@ -36,7 +36,7 @@ module V1
         post do
           authenticate!
           book = Book.find(params[:book_id])
-          Borrow.create!(book: book, user: current_user, state: "borrowed")
+          Borrow.create!(book: book, user: current_user)
         end
 
         desc 'Return a Book.'
@@ -45,8 +45,13 @@ module V1
         end
         put ':id' do
           authenticate!
-          if Borrow.find(params[:id]).user_id == current_user.id
-            Borrow.find(params[:id]).update(state:"returned")
+          # byebug
+          @bor = Borrow.find(params[:id])
+          if @bor.user_id == current_user.id
+            @bor.return_book!
+            # @bor.save
+            # puts @bor.state
+            # Borrow.find(params[:id]).update(state:"returned")
           end
         end
 
