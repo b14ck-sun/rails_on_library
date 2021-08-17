@@ -4,8 +4,8 @@ Ruby on rails library
 
 Gems used:
 
-Devise, 
-Sidekiq, 
-Grape, 
-Grape-Swagger, 
+Devise <br>
+Sidekiq <br>
+Grape <br>
+Grape-Swagger <br>
 AASM
